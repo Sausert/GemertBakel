@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remi Gommans — Coördinator Informatievoorziening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">;
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"; rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+TOKENS & RESET
+═══════════════════════════════════════════ */
+:root {
+--navy: #071526;
+--navy-mid: #0C1E35;
+--navy-card: #0F2540;
+--navy-light: #152d4a;
+--gold: #C9A84C;
+--gold-dim: #8A6A28;
+--gold-pale: #2a1f08;
+--white: #FFFFFF;
+--offwhite: #E8EEF4;
+--muted: #6A7F94;
+--body: #B0BEC8;
+--rule: #1e3050;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(--navy);
+color: var(--offwhite);
+font-family: 'DM Sans', sans-serif;
+font-weight: 400;
+line-height: 1.7;
+overflow-x: hidden;
+cursor: default;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════
+GRAIN OVERLAY
+═══════════════════════════════════════════ */
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+pointer-events: none;
+z-index: 9999;
+opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════
+NAVIGATION
+═══════════════════════════════════════════ */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 60px;
+height: 72px;
+background: rgba(7, 21, 38, 0.92);
+backdrop-filter: blur(16px);
+border-bottom: 1px solid var(--rule);
+}
+
+.nav-logo {
+font-family: 'Playfair Display', serif;
+font-size: 22px;
+font-weight: 900;
+color: var(--white);
+letter-spacing: -0.01em;
+cursor: pointer;
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+display: flex;
+gap: 40px;
+list-style: none;
+}
+
+.nav-links a {
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(--muted);
+text-decoration: none;
+transition: color 0.25s;
+position: relative;
+padding-bottom: 4px;
+}
+.nav-links a::after {
+content: '';
+position: absolute;
+bottom: 0; left: 0;
+width: 0; height: 1px;
+background: var(--gold);
+transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active {
+color: var(--gold);
+}
+.nav-links a:hover::after, .nav-links a.active::after {
+width: 100%;
+}
+
+/* ═══════════════════════════════════════════
+PAGES
+═══════════════════════════════════════════ */
+.page {
+display: none;
+min-height: 100vh;
+padding-top: 72px;
+animation: fadeUp 0.6s ease both;
+}
+.page.active { display: block; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+① OVER MIJ
+═══════════════════════════════════════════ */
+#over-mij .hero {
+position: relative;
+min-height: calc(100vh - 72px);
+display: flex;
+align-items: center;
+overflow: hidden;
+}
+
+/* Geometric background lines */
+#over-mij .hero::before {
+content: '';
+position: absolute;
+inset: 0;
+background:
+linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 60%),
+repeating-linear-gradient(
+-45deg,
+transparent,
+transparent 60px,
+rgba(201,168,76,0.03) 60px,
+rgba(201,168,76,0.03) 61px
+);
+}
+
+/* Big decorative R */
+#over-mij .hero-bg-letter {
+position: absolute;
+right: -2%;
+top: 50%;
+transform: translateY(-50%);
+font-family: 'Playfair Display', serif;
+font-size: clamp(300px, 35vw, 520px);
+font-weight: 900;
+color: rgba(201,168,76,0.04);
+line-height: 1;
+pointer-events: none;
+user-select: none;
+letter-spacing: -0.05em;
+}
+
+.hero-inner {
+position: relative;
+z-index: 2;
+max-width: 1200px;
+margin: 0 auto;
+padding: 80px 60px;
+display: grid;
+grid-template-columns: 1fr 380px;
+gap: 80px;
+align-items: center;
+width: 100%;
+}
+
+.hero-eyebrow {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.hero-eyebrow::before {
+content: '';
+display: inline-block;
+width: 32px; height: 1px;
+background: var(--gold);
+}
+
+.hero-name {
+font-family: 'Playfair Display', serif;
+font-size: clamp(52px, 6vw, 86px);
+font-weight: 900;
+line-height: 1.0;
+letter-spacing: -0.02em;
+margin-bottom: 8px;
+}
+.hero-name .first { color: var(--white); }
+.hero-name .last { color: var(--gold); display: block; }
+
+.hero-role {
+font-size: 16px;
+color: var(--muted);
+letter-spacing: 0.04em;
+margin-bottom: 40px;
+font-weight: 300;
+}
+
+.hero-divider {
+width: 60px; height: 2px;
+background: linear-gradient(90deg, var(--gold), transparent);
+margin-bottom: 36px;
+}
+
+.hero-bio {
+font-size: 17px;
+color: var(--body);
+line-height: 1.85;
+max-width: 580px;
+}
+.hero-bio strong { color: var(--offwhite); font-weight: 500; }
+
+.hero-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 36px;
+}
+.hero-tag {
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(--gold);
+border: 1px solid var(--gold-dim);
+padding: 6px 16px;
+border-radius: 2px;
+background: var(--gold-pale);
+transition: all 0.2s;
+}
+.hero-tag:hover {
+background: var(--gold);
+color: var(--navy);
+}
+
+/* Info card */
+.hero-card {
+background: var(--navy-card);
+border: 1px solid var(--rule);
+border-top: 3px solid var(--gold);
+padding: 40px 36px;
+position: relative;
+}
+.hero-card::before {
+content: '';
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background: repeating-linear-gradient(
+90deg, transparent, transparent 20px,
+rgba(255,255,255,0.005) 20px, rgba(255,255,255,0.005) 21px
+);
+pointer-events: none;
+}
+
+.card-row {
+display: flex;
+flex-direction: column;
+gap: 4px;
+padding: 18px 0;
+border-bottom: 1px solid var(--rule);
+}
+.card-row:last-child { border-bottom: none; padding-bottom: 0; }
+.card-row:first-child { padding-top: 0; }
+.card-label {
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(--gold);
+}
+.card-value {
+font-size: 15px;
+color: var(--offwhite);
+font-weight: 400;
+}
+.card-value a {
+color: var(--offwhite);
+text-decoration: none;
+transition: color 0.2s;
+}
+.card-value a:hover { color: var(--gold); }
+
+/* Scroll indicator */
+.scroll-hint {
+position: absolute;
+bottom: 40px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+color: var(--muted);
+font-size: 10px;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+animation: bounce 2s infinite;
+z-index: 2;
+}
+.scroll-hint::after {
+content: '';
+display: block;
+width: 1px; height: 40px;
+background: linear-gradient(to bottom, var(--gold-dim), transparent);
+}
+@keyframes bounce {
+0%, 100% { transform: translateX(-50%) translateY(0); }
+50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* Experience strip below hero */
+.experience-strip {
+background: var(--navy-mid);
+border-top: 1px solid var(--rule);
+border-bottom: 1px solid var(--rule);
+padding: 60px;
+}
+.strip-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+.strip-label {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 48px;
+display: flex;
+align-items: center;
+gap: 16px;
+}
+.strip-label::after {
+content: '';
+flex: 1;
+height: 1px;
+background: var(--rule);
+}
+
+.jobs-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 2px;
+}
+
+.job-item {
+padding: 28px 32px;
+background: var(--navy-card);
+border-left: 2px solid transparent;
+transition: all 0.3s ease;
+cursor: default;
+}
+.job-item:hover {
+border-left-color: var(--gold);
+background: var(--navy-light);
+transform: translateX(4px);
+}
+.job-period {
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 8px;
+}
+.job-title {
+font-family: 'Playfair Display', serif;
+font-size: 17px;
+font-weight: 700;
+color: var(--white);
+margin-bottom: 4px;
+line-height: 1.3;
+}
+.job-company {
+font-size: 13px;
+color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════
+② OPLEIDINGEN
+═══════════════════════════════════════════ */
+.page-hero {
+background: var(--navy-mid);
+border-bottom: 1px solid var(--rule);
+padding: 80px 60px 60px;
+}
+.page-hero-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+.page-eyebrow {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.page-eyebrow::before {
+content: '';
+display: inline-block;
+width: 24px; height: 1px;
+background: var(--gold);
+}
+.page-title {
+font-family: 'Playfair Display', serif;
+font-size: clamp(40px, 5vw, 64px);
+font-weight: 900;
+color: var(--white);
+line-height: 1.05;
+letter-spacing: -0.02em;
+}
+.page-title span { color: var(--gold); }
+.page-subtitle {
+font-size: 16px;
+color: var(--muted);
+margin-top: 16px;
+font-weight: 300;
+max-width: 560px;
+}
+
+.page-content {
+max-width: 1200px;
+margin: 0 auto;
+padding: 80px 60px;
+}
+
+/* Timeline */
+.timeline {
+position: relative;
+padding-left: 40px;
+}
+.timeline::before {
+content: '';
+position: absolute;
+left: 0; top: 8px; bottom: 0;
+width: 1px;
+background: linear-gradient(to bottom, var(--gold), var(--rule) 80%, transparent);
+}
+
+.timeline-item {
+position: relative;
+padding-bottom: 56px;
+opacity: 0;
+transform: translateX(-20px);
+animation: slideIn 0.5s ease forwards;
+}
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(6) { animation-delay: 0.6s; }
+.timeline-item:nth-child(7) { animation-delay: 0.7s; }
+.timeline-item:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes slideIn {
+to { opacity: 1; transform: translateX(0); }
+}
+
+.timeline-dot {
+position: absolute;
+left: -44px; top: 6px;
+width: 10px; height: 10px;
+border-radius: 50%;
+background: var(--gold);
+border: 2px solid var(--navy);
+box-shadow: 0 0 0 4px var(--gold-pale);
+}
+
+.tl-period {
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 8px;
+}
+.tl-title {
+font-family: 'Playfair Display', serif;
+font-size: 22px;
+font-weight: 700;
+color: var(--white);
+margin-bottom: 4px;
+}
+.tl-org {
+font-size: 14px;
+color: var(--muted);
+margin-bottom: 12px;
+}
+.tl-desc {
+font-size: 15px;
+color: var(--body);
+line-height: 1.75;
+max-width: 640px;
+}
+.tl-badge {
+display: inline-block;
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--gold);
+border: 1px solid var(--gold-dim);
+padding: 3px 10px;
+border-radius: 2px;
+margin-top: 12px;
+background: var(--gold-pale);
+}
+
+.section-divider {
+display: flex;
+align-items: center;
+gap: 20px;
+margin: 60px 0 48px;
+padding-left: 40px;
+}
+.section-divider-label {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(--gold);
+white-space: nowrap;
+}
+.section-divider-line {
+flex: 1;
+height: 1px;
+background: var(--rule);
+}
+
+/* Cert grid */
+.cert-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 16px;
+}
+
+.cert-card {
+background: var(--navy-card);
+border: 1px solid var(--rule);
+border-left: 3px solid var(--gold-dim);
+padding: 24px 28px;
+transition: all 0.25s ease;
+}
+.cert-card:hover {
+border-left-color: var(--gold);
+transform: translateY(-3px);
+box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+.cert-year {
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 0.2em;
+color: var(--gold);
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+.cert-name {
+font-size: 15px;
+font-weight: 500;
+color: var(--offwhite);
+line-height: 1.4;
+margin-bottom: 4px;
+}
+.cert-org {
+font-size: 13px;
+color: var(--muted);
+}
+
+/* ═══════════════════════════════════════════
+③ COMPETENTIES
+═══════════════════════════════════════════ */
+.competencies-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+gap: 24px;
+margin-bottom: 60px;
+}
+
+.comp-card {
+background: var(--navy-card);
+border: 1px solid var(--rule);
+padding: 40px;
+position: relative;
+overflow: hidden;
+transition: all 0.3s ease;
+}
+.comp-card::after {
+content: '';
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, var(--gold), transparent);
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 0.4s ease;
+}
+.comp-card:hover::after { transform: scaleX(1); }
+.comp-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+border-color: var(--navy-light);
+}
+
+.comp-icon {
+font-size: 32px;
+margin-bottom: 20px;
+display: block;
+}
+.comp-title {
+font-family: 'Playfair Display', serif;
+font-size: 22px;
+font-weight: 700;
+color: var(--white);
+margin-bottom: 12px;
+}
+.comp-desc {
+font-size: 15px;
+color: var(--body);
+line-height: 1.75;
+}
+
+/* Skills list */
+.skills-section {
+margin-top: 60px;
+}
+
+.skills-cols {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+}
+
+.skills-group-label {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.24em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 28px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(--rule);
+}
+
+.skill-item {
+display: flex;
+flex-direction: column;
+gap: 8px;
+padding: 14px 0;
+border-bottom: 1px solid rgba(30,48,80,0.6);
+}
+.skill-item:last-child { border-bottom: none; }
+
+.skill-top {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.skill-name {
+font-size: 14px;
+font-weight: 500;
+color: var(--offwhite);
+}
+.skill-level {
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--gold);
+}
+.skill-bar-track {
+height: 2px;
+background: var(--rule);
+border-radius: 1px;
+overflow: hidden;
+}
+.skill-bar-fill {
+height: 100%;
+background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+border-radius: 1px;
+animation: barGrow 1.2s ease both;
+}
+@keyframes barGrow {
+from { width: 0 !important; }
+}
+
+/* ═══════════════════════════════════════════
+④ MOTIVATIE
+═══════════════════════════════════════════ */
+.letter-layout {
+display: grid;
+grid-template-columns: 280px 1fr;
+gap: 60px;
+align-items: start;
+}
+
+.letter-sidebar {
+position: sticky;
+top: 100px;
+}
+
+.letter-monogram {
+font-family: 'Playfair Display', serif;
+font-weight: 900;
+line-height: 0.85;
+margin-bottom: 24px;
+}
+.letter-monogram .m-r {
+font-size: 110px;
+color: var(--gold);
+display: block;
+}
+.letter-monogram .m-g {
+font-size: 110px;
+color: var(--navy-light);
+display: block;
+}
+
+.letter-meta {
+border-top: 1px solid var(--gold-dim);
+padding-top: 24px;
+margin-top: 8px;
+}
+.meta-row {
+padding: 10px 0;
+border-bottom: 1px solid var(--rule);
+}
+.meta-row:last-child { border-bottom: none; }
+.meta-key {
+font-size: 9px;
+font-weight: 700;
+letter-spacing: 0.24em;
+text-transform: uppercase;
+color: var(--gold);
+margin-bottom: 4px;
+}
+.meta-val {
+font-size: 13px;
+color: var(--body);
+}
+
+.letter-body {
+background: var(--navy-card);
+border: 1px solid var(--rule);
+border-top: 4px solid var(--gold);
+padding: 60px;
+}
+
+.letter-subject {
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(--gold);
+padding: 14px 0;
+border-bottom: 1px solid var(--rule);
+margin-bottom: 48px;
+}
+
+.letter-greeting {
+font-size: 16px;
+color: var(--offwhite);
+font-weight: 500;
+margin-bottom: 36px;
+}
+
+.letter-p {
+font-size: 16px;
+color: var(--body);
+line-height: 1.9;
+margin-bottom: 28px;
+}
+.letter-p strong { color: var(--offwhite); font-weight: 500; }
+
+.letter-highlight {
+background: var(--navy-mid);
+border-left: 4px solid var(--gold);
+padding: 24px 28px;
+margin: 36px 0;
+}
+.letter-highlight p {
+font-size: 15px;
+color: var(--offwhite);
+line-height: 1.75;
+font-style: italic;
+}
+.letter-highlight .star {
+color: var(--gold);
+font-style: normal;
+}
+
+.letter-closing {
+margin-top: 48px;
+padding-top: 36px;
+border-top: 1px solid var(--rule);
+}
+.letter-closing p { font-size: 16px; color: var(--body); margin-bottom: 32px; }
+.letter-sig-name {
+font-family: 'Playfair Display', serif;
+font-size: 26px;
+font-weight: 700;
+color: var(--gold);
+margin-bottom: 6px;
+}
+.letter-sig-detail {
+font-size: 13px;
+color: var(--muted);
+}
+.letter-annex {
+margin-top: 36px;
+padding-top: 24px;
+border-top: 1px solid var(--rule);
+font-size: 12px;
+color: var(--muted);
+font-style: italic;
+text-align: right;
+}
+
+/* ═══════════════════════════════════════════
+FOOTER
+═══════════════════════════════════════════ */
+footer {
+background: var(--navy-mid);
+border-top: 1px solid var(--rule);
+padding: 40px 60px;
+text-align: center;
+}
+footer p {
+font-size: 12px;
+color: var(--muted);
+letter-spacing: 0.08em;
+}
+footer span { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+nav { padding: 0 24px; }
+.nav-links { gap: 20px; }
+.hero-inner { grid-template-columns: 1fr; padding: 60px 24px; }
+.hero-card { display: none; }
+.page-hero { padding: 60px 24px 40px; }
+.page-content { padding: 40px 24px; }
+.experience-strip { padding: 40px 24px; }
+.skills-cols { grid-template-columns: 1fr; gap: 40px; }
+.letter-layout { grid-template-columns: 1fr; }
+.letter-sidebar { position: static; }
+.letter-body { padding: 36px 24px; }
+footer { padding: 30px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+<div class="nav-logo" onclick="showPage('over-mij')">REMI</div>
+<ul class="nav-links">
+<li><a href="#" onclick="showPage('over-mij')" id="nav-over-mij" class="active">Over mij</a></li>
+<li><a href="#" onclick="showPage('opleidingen')" id="nav-opleidingen">Opleidingen</a></li>
+<li><a href="#" onclick="showPage('competenties')" id="nav-competenties">Competenties</a></li>
+<li><a href="#" onclick="showPage('motivatie')" id="nav-motivatie">Motivatie</a></li>
+</ul>
+</nav>
+
+<!-- ═══════════════════════════════════
+① OVER MIJ
+═══════════════════════════════════════ -->
+<div id="over-mij" class="page active">
+
+<section class="hero">
+<div class="hero-bg-letter">RG</div>
+
+<div class="hero-inner">
+<div class="hero-text">
+<div class="hero-eyebrow">Coördinator Informatievoorziening</div>
+<div class="hero-name">
+<span class="first">REMI</span>
+<span class="last">GOMMANS</span>
+</div>
+<div class="hero-role">QESH Specialist · Coach & Teamspil · Papa van twee</div>
+<div class="hero-divider"></div>
+<p class="hero-bio">
+Gedreven coördinator die <strong>QMS-systemen bouwt van de grond af</strong>, teams coacht naar hun beste versie en altijd de verbinding zoekt tussen mensen, processen en informatie. Ik haal energie uit het aanbrengen van <strong>structuur in dynamische omgevingen</strong> en het meenemen van collega's in verandering — rustig, helder en met oprechte betrokkenheid.
+</p>
+<p class="hero-bio" style="margin-top:16px;">
+Met een achtergrond in <strong>informatica, politicologie en kwaliteitsmanagement</strong> breng ik een unieke combinatie mee van analytisch denken, communicatieve kracht en technische interesse — inclusief <strong>gevorderd Excel en AI-toepassingen</strong>.
+</p>
+<div class="hero-tags">
+<span class="hero-tag">ISO 9001 · 14001 · 45001</span>
+<span class="hero-tag">Interne Auditor</span>
+<span class="hero-tag">QMS Architect</span>
+<span class="hero-tag">Excel & AI</span>
+<span class="hero-tag">Coach & Trainer</span>
+</div>
+</div>
+
+<div class="hero-card">
+<div class="card-row">
+<span class="card-label">Woonplaats</span>
+<span class="card-value">Sevenum</span>
+</div>
+<div class="card-row">
+<span class="card-label">Telefoon</span>
+<span class="card-value"><a href="tel:0653624181">06-53624181</a></span>
+</div>
+<div class="card-row">
+<span class="card-label">E-mail</span>
+<span class="card-value"><a href="mailto:Remi.gommans@gmail.com">Remi.gommans@gmail.com</a></span>
+</div>
+<div class="card-row">
+<span class="card-label">Geboortedatum</span>
+<span class="card-value">10 april 1990</span>
+</div>
+<div class="card-row">
+<span class="card-label">Beschikbaarheid</span>
+<span class="card-value">32 uur per week</span>
+</div>
+<div class="card-row">
+<span class="card-label">Talen</span>
+<span class="card-value">Nederlands · Engels · Duits</span>
+</div>
+</div>
+</div>
+
+<div class="scroll-hint">Scroll</div>
+</section>
+
+<section class="experience-strip">
+<div class="strip-inner">
+<div class="strip-label">Werkervaring</div>
+<div class="jobs-grid">
+<div class="job-item">
+<div class="job-period">Apr. 2022 – heden</div>
+<div class="job-title">QESH Coördinator</div>
+<div class="job-company">GEODIS — Venlo</div>
+</div>
+<br>
+<div class="job-item">
+<div class="job-period">Jan. 2021 – Apr. 2022</div>
+<div class="job-title">Warehouse Planner</div>
+<div class="job-company">GEODIS — Venlo</div>
+</div>
+<br>
+<div class="job-item">
+<div class="job-period">Feb. 2020 – Jan. 2021</div>
+<div class="job-title">Representative P&CS</div>
+<div class="job-company">GEODIS — Venlo</div>
+</div>
+<br>
+<div class="job-item">
+<div class="job-period">Feb. 2019 – Feb. 2020</div>
+<div class="job-title">Vaktrainer</div>
+<div class="job-company">Majorel — Venlo</div>
+</div>
+<br>
+<div class="job-item">
+<div class="job-period">Jun. 2016 – Feb. 2019</div>
+<div class="job-title">Customer Service Representative</div>
+<div class="job-company">Majorel — Venlo</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 <span>Remi Gommans</span> · Sevenum · 06-53624181 · Remi.gommans@gmail.com</p>
+</footer>
+</div>
+
+<!-- ═══════════════════════════════════
+② OPLEIDINGEN
+═══════════════════════════════════════ -->
+<div id="opleidingen" class="page">
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">Academische & professionele vorming</div>
+<h1 class="page-title">Opleidingen &amp; <span>Certificaten</span></h1>
+<p class="page-subtitle">Een brede academische basis, aangevuld met gerichte vakopleidingen op het gebied van kwaliteit, veiligheid en auditing.</p>
+</div>
+</div>
+
+<div class="page-content">
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="tl-period">2011 – 2016</div>
+<div class="tl-title">Literatuurwetenschap / Politicologie / Informatica</div>
+<div class="tl-org">Universiteit Utrecht</div>
+<p class="tl-desc">Brede academische opleiding die analytisch denken, communicatieve vaardigheid en technisch inzicht combineert. De informaticacomponent vormt een stevige basis voor data-gedreven werken en het begrijpen van digitale processen en systemen.</p>
+<span class="tl-badge">WO</span>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="tl-period">2003 – 2010</div>
+<div class="tl-title">Gymnasium</div>
+<div class="tl-org">Peelland College Deurne</div>
+<p class="tl-desc">Volledige gymnasiumopleiding met klassieke talen, exacte vakken en brede maatschappelijke vorming.</p>
+</div>
+
+</div>
+
+<div class="section-divider">
+<span class="section-divider-label">Certificaten & Trainingen</span>
+<div class="section-divider-line"></div>
+</div>
+
+<div class="cert-grid">
+<div class="cert-card">
+<div class="cert-year">2025</div>
+<div class="cert-name">Seveso Auditor</div>
+<div class="cert-org">PHOV</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2024</div>
+<div class="cert-name">Interne Auditor</div>
+<div class="cert-org">DNV</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2023</div>
+<div class="cert-name">Preventiemedewerker</div>
+<div class="cert-org">NiBHV</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2022</div>
+<div class="cert-name">Normopleiding ISO 9001, 14001 & 45001</div>
+<div class="cert-org">ESQ</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2022</div>
+<div class="cert-name">Dangerous Goods Safety Advisor IATA</div>
+<div class="cert-org">Evofenedex</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2022</div>
+<div class="cert-name">Coach Beeldschermwerk</div>
+<div class="cert-org">Buro Fysieke Arbeid</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2021</div>
+<div class="cert-name">Veiligheidsadviseur ADR</div>
+<div class="cert-org">Evofenedex</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2020</div>
+<div class="cert-name">Basisopleiding Declarant</div>
+<div class="cert-org">CST</div>
+</div>
+<div class="cert-card">
+<div class="cert-year">2020</div>
+<div class="cert-name">BHV</div>
+<div class="cert-org">Hippocampus</div>
+</div>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 <span>Remi Gommans</span> · Sevenum · 06-53624181 · Remi.gommans@gmail.com</p>
+</footer>
+</div>
+
+<!-- ═══════════════════════════════════
+③ COMPETENTIES
+═══════════════════════════════════════ -->
+<div id="competenties" class="page">
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">Wat ik meebreng</div>
+<h1 class="page-title">Competenties &amp; <span>Vaardigheden</span></h1>
+<p class="page-subtitle">Een combinatie van coachend leiderschap, analytisch vermogen en digitale expertise — gebundeld in ruim tien jaar praktijkervaring.</p>
+</div>
+</div>
+
+<div class="page-content">
+
+<div class="competencies-grid">
+<div class="comp-card">
+<span class="comp-icon">🎯</span>
+<div class="comp-title">Coördineren & Regisseren</div>
+<p class="comp-desc">Ik houd het overzicht in complexe, dynamische omgevingen. Ik bewaar de rust, bewaak prioriteiten en zorg dat teams weten wat er van hen verwacht wordt — ook als de druk hoog is.</p>
+</div>
+<div class="comp-card">
+<span class="comp-icon">🤝</span>
+<div class="comp-title">Coachen & Begeleiden</div>
+<p class="comp-desc">Mensen begeleiden naar hun beste versie geeft mij energie. Ik train nieuwe medewerkers vanaf dag één, geef toolboxen en kwaliteits- en veiligheidstrainingen, en pas mijn aanpak aan op de persoon.</p>
+</div>
+<div class="comp-card">
+<span class="comp-icon">🏗️</span>
+<div class="comp-title">Systemen bouwen</div>
+<p class="comp-desc">Mijn grootste prestatie: het QMS bij GEODIS volledig van nul opgebouwd. Van architectuur tot implementatie en borging — zodat iedere medewerker en klant altijd toegang heeft tot actuele procedures en instructies.</p>
+</div>
+<div class="comp-card">
+<span class="comp-icon">📊</span>
+<div class="comp-title">Data & Analyse</div>
+<p class="comp-desc">Gevorderd Excel-gebruiker die data vertaalt naar bruikbare inzichten. Ik volg actief de ontwikkelingen op het gebied van AI en zet tools praktisch in voor rapportage en procesoptimalisatie.</p>
+</div>
+<div class="comp-card">
+<span class="comp-icon">🔍</span>
+<div class="comp-title">Auditing & Kwaliteit</div>
+<p class="comp-desc">Gecertificeerd intern auditor (DNV). Ervaren in het uitvoeren en begeleiden van audits op ISO 9001, 14001 en 45001. Ik stel scherpe rapportages op en coördineer het plan van aanpak.</p>
+</div>
+<div class="comp-card">
+<span class="comp-icon">💬</span>
+<div class="comp-title">Communicatie</div>
+<p class="comp-desc">Helder communiceren op alle niveaus — van werkvloer tot management, van klant tot externe partij. Ik verbind mensen en belangen, ook als de standpunten uiteenlopen.</p>
+</div>
+</div>
+
+<div class="skills-section">
+<div class="section-divider" style="padding-left:0; margin-top:0;">
+<span class="section-divider-label">Vaardigheidsniveau</span>
+<div class="section-divider-line"></div>
+</div>
+
+<div class="skills-cols">
+<div>
+<div class="skills-group-label">Professionele vaardigheden</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">QMS bouwen & beheren</span><span class="skill-level">Expert</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Auditing (ISO 9001/14001/45001)</span><span class="skill-level">Expert</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Coördineren & plannen</span><span class="skill-level">Expert</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Coachen & trainen</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Procesverbetering</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">RI&E opstellen</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+</div>
+<div>
+<div class="skills-group-label">Digitale & technische vaardigheden</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Microsoft Excel</span><span class="skill-level">Expert</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">AI-toepassingen</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Data-analyse & rapportage</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">KMS / VMS</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+<div class="skill-item">
+<div class="skill-top"><span class="skill-name">Informatiesystemen</span><span class="skill-level">Gevorderd</span></div>
+<div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 <span>Remi Gommans</span> · Sevenum · 06-53624181 · Remi.gommans@gmail.com</p>
+</footer>
+</div>
+
+<!-- ═══════════════════════════════════
+④ MOTIVATIE
+═══════════════════════════════════════ -->
+<div id="motivatie" class="page">
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">Gemeente Gemert-Bakel</div>
+<h1 class="page-title">Motivatie<span>brief</span></h1>
+<p class="page-subtitle">Sollicitatie voor de functie van Coördinator Informatievoorziening (32–36 uur per week).</p>
+</div>
+</div>
+
+<div class="page-content">
+<div class="letter-layout">
+
+<div class="letter-sidebar">
+<div class="letter-monogram">
+<span class="m-r">R</span>
+<span class="m-g">G</span>
+</div>
+<div class="letter-meta">
+<div class="meta-row">
+<div class="meta-key">Datum</div>
+<div class="meta-val">April 2026</div>
+</div>
+<div class="meta-row">
+<div class="meta-key">Aan</div>
+<div class="meta-val">Wendy Borst<br>Manager team KI&amp;I<br>Gemeente Gemert-Bakel</div>
+</div>
+<div class="meta-row">
+<div class="meta-key">Functie</div>
+<div class="meta-val">Coördinator Informatievoorziening</div>
+</div>
+</div>
+</div>
+
+<div class="letter-body">
+<div class="letter-subject">Betreft: Sollicitatie — Coördinator Informatievoorziening (32–36 uur)</div>
+
+<div class="letter-greeting">Geachte mevrouw Borst,</div>
+
+<p class="letter-p">
+Als ik de vacaturetekst lees, herken ik mezelf direct: iemand die energie krijgt van het begeleiden van collega's, die overzicht aanbrengt in een dynamisch team en die nieuwsgierig is naar de kansen van digitale vernieuwing. Dat is precies wie ik ben — en dat is waarom ik graag <strong>Coördinator Informatievoorziening bij Gemeente Gemert-Bakel</strong> wil worden.
+</p>
+
+<div class="letter-highlight">
+<p><span class="star">★&nbsp;</span>Mijn grootste prestatie tot nu toe: het QMS bij GEODIS volledig vanaf nul opgebouwd. Van architectuur en procesinrichting tot implementatie en borging — zodat elke medewerker en elke klant altijd toegang heeft tot actuele procedures en instructies.</p>
+</div>
+
+<p class="letter-p">
+Dit soort werk vraagt precies wat u zoekt: <strong>overzicht bewaren, structuur aanbrengen, mensen meenemen in verandering</strong> en heldere communicatie op alle niveaus. Diezelfde aanpak breng ik mee als trainer: ik begeleid nieuwe medewerkers vanaf dag één en verzorg doorlopend toolboxen en kwaliteits- en veiligheidstrainingen. Mensen coachen naar hun beste versie geeft mij oprechte energie.
+</p>
+
+<p class="letter-p">
+Wat mij verder onderscheidt, is mijn <strong>gevorderde kennis van Excel en mijn actieve interesse in AI-toepassingen</strong>. Ik volg de ontwikkelingen op de voet en weet deze praktisch in te zetten voor data-analyse, rapportage en procesoptimalisatie. In een vakgebied dat volop in beweging is, zie ik dat als een echte meerwaarde.
+</p>
+
+<p class="letter-p">
+Wat mij aanspreekt in deze specifieke vacature, is de eerlijkheid ervan. U biedt ruimte om te ontdekken of een leidinggevende rol bij mij past — met ondersteuning en begeleiding in plaats van het diepe in te worden gegooid. Dat past bij waar ik nu sta: die stap bewust zetten, met aandacht voor de mensen om mij heen. 
+</p>
+
+<p class="letter-p">
+Gemotiveerd, gezellig en betrokken — op het werk én thuis als papa van twee. Ik kom graag op een <strong>koffiemoment</strong> om kennis te maken en te bespreken hoe ik kan bijdragen aan uw team.
+</p>
+
+<div class="letter-closing">
+<p>Met vriendelijke groet,</p>
+<div class="letter-sig-name">Remi Gommans</div>
+<div class="letter-sig-detail">06-53624181 · Remi.gommans@gmail.com · Sevenum</div>
+</div>
+
+</div>
+</div>
+
+<footer>
+<p>© 2026 <span>Remi Gommans</span> · Sevenum · 06-53624181 · Remi.gommans@gmail.com</p>
+</footer>
+</div>
+
+<!-- ═══════════════ JS ═══════════════ -->
+<script>
+function showPage(id) {
+// Hide all pages
+document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+// Remove active from all nav links
+document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+// Show target page
+document.getElementById(id).classList.add('active');
+// Activate nav link
+const navEl = document.getElementById('nav-' + id);
+if (navEl) navEl.classList.add('active');
+// Scroll to top
+window.scrollTo({ top: 0, behavior: 'smooth' });
+return false;
+}
+
+// Prevent default on nav links
+document.querySelectorAll('.nav-links a').forEach(a => {
+a.addEventListener('click', function(e) { e.preventDefault(); });
+});
+</script>
+
+</body>
+</html>
